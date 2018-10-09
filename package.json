@@ -9,11 +9,11 @@
   "author": "Vikalp",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3",
-    "mysql": "^2.15.0",
-    "socket.io": "^2.0.3"
+    "express": "latest",
+    "mysql": "latest",
+    "socket.io": "latest"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "latest"
   }
 }
