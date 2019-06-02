@@ -1,30 +1,17 @@
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-// var mysql = require('mysql');
-Users = {};
-Connections = [];
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-server.listen(4000, () => {
-  console.log('Server is online at localhost:4000...');
-});
+const Users = {};
+const Connections = [];
+
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => console.log(`Server is online at port ${PORT}...`));
 
 app.use(express.static('client'));
 
-
-// var con = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'chatapp'
-// });
-// con.connect((err) => {
-//   if (err) console.log('Error while connecting to mysql...');
-// });
-
-
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   Connections.push(socket);
   console.log('Users online: %s', Connections.length);
 
@@ -33,18 +20,15 @@ io.on('connection', (socket) => {
     console.log('Users online: %s', Connections.length);
   });
 
-  socket.emit('myUserName', (UserName) => {
+  socket.emit('myUserName', UserName => {
     Users[socket.UserName] = socket;
   });
 
-  socket.on('message', (data) => {
+  socket.on('message', data => {
     socket.broadcast.emit('chatMessge', data);
   });
 
-  // con.query("INSERT INTO ")
-
-  socket.on('typing', (data) => {
+  socket.on('typing', data => {
     socket.broadcast.emit('typing', data);
   });
-
 });
