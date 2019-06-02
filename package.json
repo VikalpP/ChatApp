@@ -4,7 +4,7 @@
   "description": "Simple chat app using Express & Socket.io",
   "main": "server.js",
   "scripts": {
-    "test": "node server.js"
+    "start": "node server.js"
   },
   "author": "Vikalp",
   "license": "ISC",
