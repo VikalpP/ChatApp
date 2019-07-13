@@ -15,6 +15,9 @@ const logOnlineUser = () => {
   console.log(`Users online: ${Connections.length}`);
 };
 
+let typingUsers = {};
+const currentlyTypingUsers = () => Object.keys(typingUsers);
+
 io.on('connection', socket => {
   Connections.push(socket);
   logOnlineUser();
@@ -33,7 +36,19 @@ io.on('connection', socket => {
     socket.broadcast.emit('chatMessge', { username, message });
   });
 
-  socket.on('typing', data => {
-    socket.broadcast.emit('typing', data);
+  const emitCurrentlyTypingUsers = () => {
+    const users = currentlyTypingUsers();
+    const emitMsg = users.length > 0 ? 'typing' : 'stopTyping';
+    socket.broadcast.emit(emitMsg, users);
+  };
+
+  socket.on('typing', () => {
+    if (!typingUsers[socket.username]) typingUsers[socket.username] = true;
+    emitCurrentlyTypingUsers();
+  });
+
+  socket.on('stopTyping', () => {
+    delete typingUsers[socket.username];
+    emitCurrentlyTypingUsers();
   });
 });
