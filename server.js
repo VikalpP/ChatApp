@@ -3,7 +3,6 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const Users = {};
 const Connections = [];
 
 const PORT = process.env.PORT || 4000;
@@ -11,21 +10,27 @@ server.listen(PORT, () => console.log(`Server is online at port ${PORT}...`));
 
 app.use(express.static('client'));
 
+const logOnlineUser = () => {
+  console.clear();
+  console.log(`Users online: ${Connections.length}`);
+};
+
 io.on('connection', socket => {
   Connections.push(socket);
-  console.log('Users online: %s', Connections.length);
+  logOnlineUser();
 
   socket.on('disconnect', () => {
     Connections.splice(Connections.indexOf(socket), 1);
-    console.log('Users online: %s', Connections.length);
+    logOnlineUser();
   });
 
-  socket.emit('myUserName', UserName => {
-    Users[socket.UserName] = socket;
+  socket.on('myUserName', UserName => {
+    socket.username = UserName;
   });
 
-  socket.on('message', data => {
-    socket.broadcast.emit('chatMessge', data);
+  socket.on('message', message => {
+    const { username } = socket;
+    socket.broadcast.emit('chatMessge', { username, message });
   });
 
   socket.on('typing', data => {

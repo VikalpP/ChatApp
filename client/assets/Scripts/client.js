@@ -3,7 +3,6 @@ var username = $('#username');
 var UserNameBlock = $('#UserNameBlock');
 var btnSendMsg = $('#btnSendMsg');
 var userMessage = $('#userMessage');
-var username = $('#username');
 var messages = $('#messages');
 var msgForm = $('#msgForm');
 var userNameForm = $('#userNameForm');
@@ -16,10 +15,7 @@ userNameForm.submit(() => {
 // btnSendMsg.click(() => {
 msgForm.submit(() => {
 
-  client.emit('message', {
-    username: username.val(),
-    message: userMessage.val()
-  });
+  client.emit('message', userMessage.val());
 
   messages.append(`
     <li class="message right appeared">
