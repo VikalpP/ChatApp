@@ -14,18 +14,13 @@ userNameForm.submit(() => {
 });
 
 msgForm.submit(() => {
-  client.emit('message', userMessage.val());
+  const message = userMessage.val();
 
-  messages.append(`
-    <li class="message right appeared">
-      <div class="avatar">
-        <h4> You </h4>
-      </div>
-      <div class="text_wrapper">
-        <div class="text"> ${userMessage.val()} </div>
-      </div>
-    </li>
-  `);
+  // console.log(message.trim().length)
+  if (message.trim().length > 0) {
+    client.emit('message', userMessage.val());
+    messages.append(messageBuilder('right', 'You', userMessage.val()));
+  }
   userMessage.val('');
   return false;
 });
@@ -62,15 +57,16 @@ client.on('typing', data => {
 
 client.on('stopTyping', () => $('#status').text(''));
 
-client.on('chatMessge', data => {
-  messages.append(
-    `<li class="message left appeared">
-      <div class="avatar">
-        <h4> ${data.username} </h4>
-      </div>
-      <div class="text_wrapper">
-        <div class="text"> ${data.message} </div>
-      </div>
-    </li>`
-  );
+client.on('chatMessage', data => {
+  messages.append(messageBuilder('left', data.username, data.message));
 });
+
+const messageBuilder = (direction, sender, message) => `
+<li class="message ${direction} appeared">
+  <div class="avatar">
+    <h4> ${sender} </h4>
+  </div>
+  <div class="text_wrapper">
+    <div class="text"> ${message} </div>
+  </div>
+</li>`;

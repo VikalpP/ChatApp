@@ -33,7 +33,7 @@ io.on('connection', socket => {
 
   socket.on('message', message => {
     const { username } = socket;
-    socket.broadcast.emit('chatMessge', { username, message });
+    socket.broadcast.emit('chatMessage', { username, message });
   });
 
   const emitCurrentlyTypingUsers = () => {
