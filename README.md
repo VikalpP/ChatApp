@@ -1,2 +1,4 @@
 # ChatApp
-An end-to-end chat application for temporary chatting to any registered user, developed using Socket.io (JavaScript WebSocket).
+An end-to-end chat application for have a small conversation with any online user.
+
+Developed using [Socket.io](https://socket.io/) (JavaScript WebSocket).
