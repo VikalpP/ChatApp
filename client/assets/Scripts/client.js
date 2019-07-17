@@ -19,7 +19,7 @@ msgForm.submit(() => {
   // console.log(message.trim().length)
   if (message.trim().length > 0) {
     client.emit('message', userMessage.val());
-    messages.append(messageBuilder('right', 'You', userMessage.val()));
+    messages.append(messageBuilder('right', '', userMessage.val()));
   }
   userMessage.val('');
   return false;
@@ -63,10 +63,8 @@ client.on('chatMessage', data => {
 
 const messageBuilder = (direction, sender, message) => `
 <li class="message ${direction} appeared">
-  <div class="avatar">
-    <h4> ${sender} </h4>
-  </div>
   <div class="text_wrapper">
+    ${sender ? `<h6> ${sender} </h6>` : ''}
     <div class="text"> ${message} </div>
   </div>
 </li>`;

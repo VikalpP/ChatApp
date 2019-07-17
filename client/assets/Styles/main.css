@@ -106,6 +106,8 @@ body {
 .messages .message.left .text_wrapper::before {
   right: 100%;
   border-right-color: #ffe6cb;
+  border-top-color: #ffe6cb;
+  border-radius: 6px 0 0;
 }
 
 #ChatWell {
@@ -115,7 +117,7 @@ body {
 .messages {
   position: relative;
   list-style: none;
-  padding: 20px 10px 0 10px;
+  padding: 20px 0 0;
   margin: 0;
   height: 100%;
   overflow: scroll;
@@ -124,6 +126,8 @@ body {
 .messages .message.right .text_wrapper::before {
   left: 100%;
   border-left-color: #c7eafc;
+  border-top-color: #c7eafc;
+  border-radius: 0 6px 0;
 }
 
 .messages .message {
@@ -135,25 +139,19 @@ body {
   opacity: 0;
 }
 
-.messages .message .avatar h4 {
-  margin: auto;
-  color: white;
-  font-weight: 500;
-}
-
-.messages .message.left .avatar {
-  display: flex;
-  background-color: #f5886e;
-  float: left;
+.messages .message.left h6 {
+  margin: 8px 0 0 8px;
+  color: #666;
+  font-weight: 700;
 }
 
 .messages .message.left .text_wrapper {
   background-color: #ffe6cb;
-  margin-left: 20px;
+  margin: 0 16px;
+  border-top-left-radius: 0px;
 }
 
 .messages .message .text_wrapper:before {
-  top: 18px;
   border: solid transparent;
   content: ' ';
   height: 0;
@@ -161,31 +159,26 @@ body {
   position: absolute;
   pointer-events: none;
 }
-
+/* 
 .messages .message .text_wrapper::after {
   border-width: 13px;
   margin-top: 0px;
-}
+} */
 
 .messages .message .text_wrapper::before {
-  border-width: 12px;
-  margin-left: -1px;
+  border-width: 8px;
+  margin-left: -2px;
 }
 
 .messages .message.left .text {
   color: #c48843;
 }
 
-.messages .message.right .avatar {
-  display: flex;
-  background-color: #fdbf68;
-  float: right;
-}
-
 .messages .message.right .text_wrapper {
   background-color: #c7eafc;
-  margin-right: 20px;
+  margin: 0 16px;
   float: right;
+  border-top-right-radius: 0;
 }
 
 .messages .message.right .text {
@@ -196,24 +189,18 @@ body {
   opacity: 1;
 }
 
-.messages .message .avatar {
-  min-width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
 .messages .message .text_wrapper {
   display: inline-block;
-  padding: 16px;
   border-radius: 6px;
   min-width: 100px;
   position: relative;
+  border-radius: 6px;
 }
 
 .messages .message .text_wrapper .text {
   word-wrap: break-word;
-  font-size: 18px;
+  padding: 8px;
+  font-size: 1.2em;
   font-weight: 300;
 }
 
